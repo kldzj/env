@@ -1,0 +1,36 @@
+{
+  "name": "@kldzj/env",
+  "version": "0.0.0",
+  "description": "A simple and type-safe env parser",
+  "keywords": [
+    "env",
+    "parser",
+    "typescript"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "bugs": "https://github.com/kldzj/env/issues",
+  "repository": "https://github.com/kldzj/env",
+  "author": {
+    "name": "Nikolai Kolodziej",
+    "email": "npm@kldzj.dev",
+    "url": "https://github.com/kldzj"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "prebuild": "rimraf dist",
+    "prepublishOnly": "yarn build && yarn test"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.0",
+    "@types/node": "^18.11.7",
+    "jest": "^29.2.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.8.4"
+  }
+}
