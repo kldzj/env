@@ -46,7 +46,7 @@ console.log(env.NODE_ENV); // type string -> 'development'
 - Optional (and default) values
 - Passing a custom environment object
 
-### Parser
+## Parser
 
 The parser is a function that takes a string and returns a value of any type. It can be used to parse environment variables that are not strings.
 
@@ -64,16 +64,38 @@ const env = parseEnv({
 console.log(env.DATE); // type Date -> Date object
 ```
 
-### Options
+## Options
 
-#### `env`
+### `env`
 
 An object that contains the environment variables. If not provided, `process.env` is used.
 
-#### `throwOnNaN`
+### `throwOnNaN`
 
 If `true`, an error is thrown if a variable type is number and is parsed as `NaN`. Defaults to `false`.
 
-#### `defaultParser`
+### `defaultParser`
 
 Allows you to override the default parser. The default parser is used when a variable does not have a custom parser.
+
+```typescript
+import { parseEnv } from '@kldzj/env';
+
+const env = parseEnv(
+  {
+    PORT: {
+      type: 'number',
+    },
+  },
+  {
+    env: {
+      PORT: '3000',
+    },
+    throwOnNaN: true,
+    defaultParser: (value, item) => {
+      // The default parser must honor the type of the variable (item.type) if it is present
+      // ...
+    },
+  }
+);
+```
