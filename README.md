@@ -1,4 +1,4 @@
-A environment variable parser with type safety and validation out of the box.
+A simple environment variable parser with type safety and validation out of the box.
 
 ## Installation
 
@@ -14,6 +14,13 @@ Using npm:
 $ npm i -S @kldzj/env
 ```
 
+## Features
+
+- Type safety
+- Custom parsers
+- Optional (and default) values
+- Passing a custom environment object
+
 ## Example usage
 
 ```typescript
@@ -22,29 +29,22 @@ import { parseEnv } from '@kldzj/env';
 const env = parseEnv({
   PORT: {
     type: 'number',
+    optional: true,
     default: 3000,
   },
   NODE_ENV: {
     type: 'string',
-    default: 'development',
+    optional: true,
   },
   DB_URL: {
     type: 'string',
-    required: true,
   },
 });
 
-console.log(env.PORT); // type number -> 3000
-console.log(env.NODE_ENV); // type string -> 'development'
-// ...
+console.log(env.PORT); // typed as number
+console.log(env.NODE_ENV); // typed as string | undefined
+console.log(env.DB_URL); // typed as string, an error is thrown in case it's missing
 ```
-
-## Features
-
-- Type safety
-- Custom parsers
-- Optional (and default) values
-- Passing a custom environment object
 
 ## Parser
 
@@ -61,10 +61,32 @@ const env = parseEnv({
   },
 });
 
-console.log(env.DATE); // type Date -> Date object
+console.log(env.DATE); // typed as Date
 ```
 
 ## Options
+
+```typescript
+const env = parseEnv(
+  {
+    PORT: {
+      type: 'number',
+    },
+  },
+  {
+    env: {
+      ...process.env,
+      ...someOtherEnv,
+    },
+    throwOnNaN: true,
+    defaultParser: (value, item) => {
+      // The default parser must honor the type of the variable (item.type) if it is present
+      // ...
+      return newValue;
+    },
+  }
+);
+```
 
 ### `env`
 
@@ -77,25 +99,3 @@ If `true`, an error is thrown if a variable type is number and is parsed as `NaN
 ### `defaultParser`
 
 Allows you to override the default parser. The default parser is used when a variable does not have a custom parser.
-
-```typescript
-import { parseEnv } from '@kldzj/env';
-
-const env = parseEnv(
-  {
-    PORT: {
-      type: 'number',
-    },
-  },
-  {
-    env: {
-      PORT: '3000',
-    },
-    throwOnNaN: true,
-    defaultParser: (value, item) => {
-      // The default parser must honor the type of the variable (item.type) if it is present
-      // ...
-    },
-  }
-);
-```

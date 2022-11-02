@@ -29,7 +29,6 @@ function parseEnv<E extends Env>(info: E, opts?: ParseEnvOptions): ParsedEnv<E> 
   return result;
 }
 
-export default parseEnv;
-
-export type { Env, ParsedEnv, ParseEnvOptions };
 export { parseEnv };
+export default parseEnv;
+export type { Env, ParsedEnv, ParseEnvOptions };
