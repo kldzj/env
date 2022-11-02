@@ -34,7 +34,7 @@ export interface EnvVarParser {
 }
 
 export interface EnvVarOptional<T extends keyof EnvTypeMap> {
-  optional?: true;
+  optional: true;
   default?: EnvTypeMap[T];
 }
 
