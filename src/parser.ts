@@ -11,7 +11,7 @@ export function parseEnvValue(value: string, item: EnvVar<any>) {
     case 'number':
       return Number(value);
     case 'boolean':
-      return value === 'true' || value === '1';
+      return value === '1' || value.toLowerCase() === 'true';
     case 'array':
       return value.split(',');
     default:
