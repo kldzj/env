@@ -1,7 +1,7 @@
 import { getParser } from './parser';
 import type { Env, ParsedEnv, ParseEnvOptions } from './types';
 
-function parseEnv<E extends Env>(info: Env, opts?: ParseEnvOptions): ParsedEnv<E> {
+function parseEnv<E extends Env>(info: E, opts?: ParseEnvOptions): ParsedEnv<E> {
   const result: any = {};
   const env = opts?.env ?? process.env;
   for (const key in info) {
