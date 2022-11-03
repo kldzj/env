@@ -21,6 +21,7 @@ describe('types', () => {
           NUMBER: '123',
           BOOLEAN: 'true',
           ARRAY: 'foo,bar,baz',
+          CUSTOM: '2023-06-05',
         },
       }
     );
