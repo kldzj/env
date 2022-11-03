@@ -13,7 +13,6 @@ jobs:
             env: GITHUB_TOKEN
     env:
       NODE_ENV: test
-      DEBUG: '*'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
