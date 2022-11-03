@@ -49,7 +49,9 @@ export type Env = {
 };
 
 export type EnvType<T extends EnvVar<keyof EnvTypeMap>> = T extends EnvVarParser
-  ? ReturnType<T['parser']>
+  ? T['optional'] extends true
+    ? ReturnType<T['parser']> | undefined
+    : ReturnType<T['parser']>
   : T extends EnvVarType<keyof EnvTypeMap>
   ? T extends EnvVarOptional<any>
     ? T['default'] extends string | number | boolean | string[]

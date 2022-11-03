@@ -12,6 +12,8 @@ describe('types', () => {
         ARRAY: { type: 'array' },
         OPTIONAL: { type: 'string', optional: true },
         DEFAULT: { type: 'string', optional: true, default: 'foo' },
+        CUSTOM: { parser: (value) => new Date(value) },
+        CUSTOM_OPTIONAL: { parser: (value) => new Date(value), optional: true },
       },
       {
         env: {
@@ -29,5 +31,7 @@ describe('types', () => {
     assert<Equals<typeof env['ARRAY'], string[]>>(true);
     assert<Equals<typeof env['OPTIONAL'], string | undefined>>(true);
     assert<Equals<typeof env['DEFAULT'], string>>(true);
+    assert<Equals<typeof env['CUSTOM'], Date>>(true);
+    assert<Equals<typeof env['CUSTOM_OPTIONAL'], Date | undefined>>(true);
   });
 });
