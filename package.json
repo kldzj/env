@@ -1,6 +1,6 @@
 {
   "name": "@kldzj/env",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple and type-safe env parser",
   "keywords": [
     "env",
